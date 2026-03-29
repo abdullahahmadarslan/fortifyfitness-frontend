@@ -101,13 +101,29 @@ const fetchWithTimeout = async (
 
 const handleResponse = async <T>(response: Response): Promise<T> => {
   if (!response.ok) {
-    const errorData = await response.json().catch(() => ({
-      message: 'An error occurred',
-    }));
+    // Try to parse JSON; if it fails the backend returned HTML or empty body
+    let errorData: any = null;
+    try {
+      errorData = await response.json();
+    } catch {
+      // Non-JSON response (e.g. Django HTML error page or network issue)
+      const error: ApiError = {
+        message: `Request failed with status ${response.status}. Please try again.`,
+        errors: undefined,
+        detail: undefined,
+      };
+      throw error;
+    }
 
     const error: ApiError = {
       message: toReadableErrorMessage(errorData),
-      errors: errorData.errors,
+      // DRF puts field errors directly on the root object (not under .errors),
+      // so pass the whole errorData as errors when it looks like field-level errors
+      errors: errorData.errors ?? (
+        errorData && !errorData.message && !errorData.detail
+          ? errorData
+          : undefined
+      ),
       detail: errorData.detail,
     };
 

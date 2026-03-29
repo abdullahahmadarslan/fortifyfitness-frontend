@@ -1,8 +1,8 @@
 import { useState } from "react";
 import { useNavigate, Link } from "react-router-dom";
-import { 
-  Mail, Lock, User, ArrowRight, Check, 
-  AlertCircle, Loader2, Eye, EyeOff 
+import {
+  Mail, Lock, User, ArrowRight, Check,
+  AlertCircle, Loader2, Eye, EyeOff
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -15,7 +15,7 @@ export default function RegisterPage() {
   const navigate = useNavigate();
   const { register } = useAuth();
   const { toast } = useToast();
-  
+
   const [formData, setFormData] = useState({
     firstName: "",
     lastName: "",
@@ -23,7 +23,7 @@ export default function RegisterPage() {
     password: "",
     confirmPassword: "",
   });
-  
+
   const [showPassword, setShowPassword] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
 
@@ -61,9 +61,23 @@ export default function RegisterPage() {
       toast({ title: "Account Ready!", description: "Start your assessment now." });
       navigate("/assessment");
     } catch (error: any) {
+      // Extract field-specific errors from DRF response (e.g. { email: ["..."], password: ["..."] })
+      let description = error.message || "Failed to create account.";
+      if (error.errors && typeof error.errors === "object") {
+        const fieldMessages = Object.entries(error.errors)
+          .map(([field, messages]: [string, any]) => {
+            const msg = Array.isArray(messages) ? messages[0] : messages;
+            if (field === "non_field_errors") return msg;
+            const label = field.replace(/_/g, " ");
+            return `${label.charAt(0).toUpperCase() + label.slice(1)}: ${msg}`;
+          })
+          .filter(Boolean)
+          .join("\n");
+        if (fieldMessages) description = fieldMessages;
+      }
       toast({
-        title: "Error",
-        description: error.message || "Failed to create account.",
+        title: "Registration Failed",
+        description,
         variant: "destructive",
       });
     } finally {
@@ -118,20 +132,20 @@ export default function RegisterPage() {
               <Label htmlFor="password" className="text-xs font-bold uppercase tracking-widest text-zinc-500">Password</Label>
               <div className="relative group">
                 <Lock className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-zinc-400 group-focus-within:text-primary transition-colors" />
-                <Input 
-                  id="password" 
-                  type={showPassword ? "text" : "password"} 
-                  placeholder="••••••••" 
-                  value={formData.password} 
-                  onChange={handleChange} 
-                  disabled={isLoading} 
-                  className="h-11 pl-10 pr-10 bg-zinc-50/50 dark:bg-zinc-900 border-zinc-200 dark:border-zinc-800" 
+                <Input
+                  id="password"
+                  type={showPassword ? "text" : "password"}
+                  placeholder="••••••••"
+                  value={formData.password}
+                  onChange={handleChange}
+                  disabled={isLoading}
+                  className="h-11 pl-10 pr-10 bg-zinc-50/50 dark:bg-zinc-900 border-zinc-200 dark:border-zinc-800"
                 />
                 <button type="button" onClick={() => setShowPassword(!showPassword)} className="absolute right-3 top-1/2 -translate-y-1/2 text-zinc-400">
                   {showPassword ? <EyeOff className="h-4 w-4" /> : <Eye className="h-4 w-4" />}
                 </button>
               </div>
-              
+
               {formData.password && (
                 <div className="pt-2 animate-in fade-in duration-300">
                   <div className="flex gap-1.5 h-1">
@@ -139,6 +153,23 @@ export default function RegisterPage() {
                       <div key={step} className={`h-full flex-1 rounded-full transition-all duration-500 ${strengthCount >= step ? 'bg-primary' : 'bg-zinc-100 dark:bg-zinc-800'}`} />
                     ))}
                   </div>
+                  <ul className="mt-3 grid grid-cols-2 gap-y-1 gap-x-3 text-xs">
+                    {[
+                      { key: 'minLength', label: '8+ characters' },
+                      { key: 'hasUpperCase', label: 'Uppercase letter' },
+                      { key: 'hasLowerCase', label: 'Lowercase letter' },
+                      { key: 'hasNumber', label: 'Number (0–9)' },
+                      { key: 'hasSpecial', label: 'Special (!@#$%^&*)' },
+                    ].map(({ key, label }) => {
+                      const ok = passwordValidation[key as keyof typeof passwordValidation];
+                      return (
+                        <li key={key} className={`flex items-center gap-1.5 transition-colors ${ok ? 'text-emerald-500' : 'text-zinc-400'}`}>
+                          {ok ? <Check className="h-3 w-3 shrink-0" /> : <AlertCircle className="h-3 w-3 shrink-0" />}
+                          {label}
+                        </li>
+                      );
+                    })}
+                  </ul>
                 </div>
               )}
             </div>
