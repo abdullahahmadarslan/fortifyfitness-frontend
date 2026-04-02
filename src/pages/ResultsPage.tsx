@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { motion } from "framer-motion";
-import { CheckCircle2, AlertTriangle, ArrowRight, AlertCircle, ExternalLink } from "lucide-react";
+import { CheckCircle2, AlertTriangle, ArrowRight, AlertCircle, ExternalLink, CalendarDays } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Progress } from "@/components/ui/progress";
 import { useNavigate } from "react-router-dom";
@@ -17,7 +17,7 @@ export default function ResultsPage() {
     if (stored) {
       const data = JSON.parse(stored);
       setResult(data);
-      
+
       // Trigger confetti celebration
       setTimeout(() => {
         // First burst
@@ -27,7 +27,7 @@ export default function ResultsPage() {
           origin: { y: 0.3 }
         });
       }, 500);
-      
+
       // Second burst after 1 second gap
       setTimeout(() => {
         confetti({
@@ -310,11 +310,10 @@ export default function ResultsPage() {
             ).map(({ level, label }) => (
               <div
                 key={level}
-                className={`rounded-xl border p-4 text-center ${
-                  competencyLevel === level
+                className={`rounded-xl border p-4 text-center ${competencyLevel === level
                     ? "border-primary bg-primary/5"
                     : "border-border"
-                }`}
+                  }`}
               >
                 <span className="font-heading text-sm font-bold text-card-foreground">
                   {label}
@@ -328,30 +327,34 @@ export default function ResultsPage() {
           </div>
         </motion.div>
 
-        {/* Learning Resources Section */}
+        {/* Book a Call CTA */}
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ delay: 0.35 }}
-          className="mt-6 rounded-2xl border border-primary/20 bg-gradient-to-br from-primary/5 to-primary/2 p-8 shadow-soft"
+          className="mt-6 rounded-2xl border border-primary/30 bg-gradient-to-br from-primary/10 via-primary/5 to-background p-8 shadow-soft"
         >
-          <div className="flex items-start gap-4">
-            <div className="flex-1">
-              <h2 className="font-heading text-lg font-semibold text-card-foreground">
-                Expand Your Knowledge
+          <div className="flex flex-col sm:flex-row items-center gap-6">
+            <div className="flex h-16 w-16 shrink-0 items-center justify-center rounded-full bg-primary/10 border border-primary/20">
+              <CalendarDays className="h-8 w-8 text-primary" />
+            </div>
+            <div className="flex-1 text-center sm:text-left">
+              <h2 className="font-heading text-xl font-bold text-card-foreground">
+                Ready to Take the Next Step?
               </h2>
               <p className="mt-2 text-sm text-muted-foreground leading-relaxed">
-                To deepen your understanding of exercise techniques, progressive training methods, and fitness best practices, we recommend exploring comprehensive resources. Click below to access detailed information and expert guidance.
+                Book a free strategy call with a Fortify Fitness coach. We'll walk you through your
+                results and build a personalised plan that fits your goals.
               </p>
-              <a
-                href="https://www.google.com"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="mt-4 inline-flex items-center gap-2 rounded-lg bg-primary px-4 py-2.5 text-sm font-semibold text-primary-foreground hover:bg-primary/90 transition-colors"
-              >
-                Learn More About Exercise Techniques <ExternalLink className="h-4 w-4" />
-              </a>
             </div>
+            <a
+              href="https://fortifyfitness.com/glp1bookacall"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="shrink-0 inline-flex items-center gap-2 rounded-xl bg-primary px-6 py-3 text-sm font-bold text-primary-foreground shadow-lg shadow-primary/25 hover:bg-primary/90 transition-all hover:scale-105 active:scale-100"
+            >
+              Book a Free Call <ExternalLink className="h-4 w-4" />
+            </a>
           </div>
         </motion.div>
 
