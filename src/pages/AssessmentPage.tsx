@@ -279,17 +279,15 @@ export default function AssessmentPage() {
             {STEPS.map((s, i) => (
               <div
                 key={s}
-                className={`flex items-center gap-1 text-xs ${
-                  i <= step ? "text-primary" : "text-muted-foreground"
-                }`}
+                className={`flex items-center gap-1 text-xs ${i <= step ? "text-primary" : "text-muted-foreground"
+                  }`}
               >
                 {i < step ? (
                   <CheckCircle2 className="h-3.5 w-3.5" />
                 ) : (
                   <div
-                    className={`h-2 w-2 rounded-full ${
-                      i === step ? "bg-primary" : "bg-muted"
-                    }`}
+                    className={`h-2 w-2 rounded-full ${i === step ? "bg-primary" : "bg-muted"
+                      }`}
                   />
                 )}
                 <span className="hidden sm:inline">{s}</span>
@@ -333,10 +331,10 @@ export default function AssessmentPage() {
                           area === "shoulder"
                             ? shoulderStatus
                             : area === "knee"
-                            ? kneeStatus
-                            : area === "hip"
-                            ? hipStatus
-                            : backStatus
+                              ? kneeStatus
+                              : area === "hip"
+                                ? hipStatus
+                                : backStatus
                         }
                         onValueChange={(val) => {
                           if (area === "shoulder") setShoulderStatus(val);
@@ -700,7 +698,7 @@ export default function AssessmentPage() {
                                 clock_steps_right: v,
                               }))
                             }
-                            maxValue={6}
+                            maxValue={12}
                             unit="steps"
                             showAverage={true}
                           />
@@ -748,11 +746,10 @@ export default function AssessmentPage() {
                           <div
                             key={idx}
                             onClick={() => setCurrentActivityLevel(String(idx))}
-                            className={`flex cursor-pointer items-center gap-3 rounded-lg border p-3 transition-all ${
-                              currentActivityLevel === String(idx)
-                                ? "border-primary bg-primary/10"
-                                : "border-border/40 bg-white/50 hover:border-primary/40 hover:bg-primary/5"
-                            }`}
+                            className={`flex cursor-pointer items-center gap-3 rounded-lg border p-3 transition-all ${currentActivityLevel === String(idx)
+                              ? "border-primary bg-primary/10"
+                              : "border-border/40 bg-white/50 hover:border-primary/40 hover:bg-primary/5"
+                              }`}
                           >
                             <RadioGroupItem value={String(idx)} id={`activity-${idx}`} />
                             <Label htmlFor={`activity-${idx}`} className="cursor-pointer text-sm">
@@ -784,11 +781,10 @@ export default function AssessmentPage() {
                           <div
                             key={idx}
                             onClick={() => setWeightTrainingExperience(String(idx))}
-                            className={`flex cursor-pointer items-center gap-3 rounded-lg border p-3 transition-all ${
-                              weightTrainingExperience === String(idx)
-                                ? "border-primary bg-primary/10"
-                                : "border-border/40 bg-white/50 hover:border-primary/40 hover:bg-primary/5"
-                            }`}
+                            className={`flex cursor-pointer items-center gap-3 rounded-lg border p-3 transition-all ${weightTrainingExperience === String(idx)
+                              ? "border-primary bg-primary/10"
+                              : "border-border/40 bg-white/50 hover:border-primary/40 hover:bg-primary/5"
+                              }`}
                           >
                             <RadioGroupItem
                               value={String(idx)}
@@ -823,11 +819,10 @@ export default function AssessmentPage() {
                           <div
                             key={idx}
                             onClick={() => setGymConfidence(String(idx))}
-                            className={`flex cursor-pointer items-center gap-3 rounded-lg border p-3 transition-all ${
-                              gymConfidence === String(idx)
-                                ? "border-primary bg-primary/10"
-                                : "border-border/40 bg-white/50 hover:border-primary/40 hover:bg-primary/5"
-                            }`}
+                            className={`flex cursor-pointer items-center gap-3 rounded-lg border p-3 transition-all ${gymConfidence === String(idx)
+                              ? "border-primary bg-primary/10"
+                              : "border-border/40 bg-white/50 hover:border-primary/40 hover:bg-primary/5"
+                              }`}
                           >
                             <RadioGroupItem
                               value={String(idx)}
@@ -860,11 +855,10 @@ export default function AssessmentPage() {
                           <div
                             key={idx}
                             onClick={() => setPrimaryGoal(String(idx))}
-                            className={`flex cursor-pointer items-center gap-3 rounded-lg border p-3 transition-all ${
-                              primaryGoal === String(idx)
-                                ? "border-primary bg-primary/10"
-                                : "border-border/40 bg-white/50 hover:border-primary/40 hover:bg-primary/5"
-                            }`}
+                            className={`flex cursor-pointer items-center gap-3 rounded-lg border p-3 transition-all ${primaryGoal === String(idx)
+                              ? "border-primary bg-primary/10"
+                              : "border-border/40 bg-white/50 hover:border-primary/40 hover:bg-primary/5"
+                              }`}
                           >
                             <RadioGroupItem value={String(idx)} id={`goal-${idx}`} />
                             <Label htmlFor={`goal-${idx}`} className="cursor-pointer text-sm">
@@ -892,11 +886,10 @@ export default function AssessmentPage() {
                           <div
                             key={idx}
                             onClick={() => setTimelineUrgency(String(idx))}
-                            className={`flex cursor-pointer items-center gap-3 rounded-lg border p-3 transition-all ${
-                              timelineUrgency === String(idx)
-                                ? "border-primary bg-primary/10"
-                                : "border-border/40 bg-white/50 hover:border-primary/40 hover:bg-primary/5"
-                            }`}
+                            className={`flex cursor-pointer items-center gap-3 rounded-lg border p-3 transition-all ${timelineUrgency === String(idx)
+                              ? "border-primary bg-primary/10"
+                              : "border-border/40 bg-white/50 hover:border-primary/40 hover:bg-primary/5"
+                              }`}
                           >
                             <RadioGroupItem
                               value={String(idx)}
@@ -930,11 +923,10 @@ export default function AssessmentPage() {
                           <div
                             key={idx}
                             onClick={() => setEquipmentAccess(String(idx))}
-                            className={`flex cursor-pointer items-center gap-3 rounded-lg border p-3 transition-all ${
-                              equipmentAccess === String(idx)
-                                ? "border-primary bg-primary/10"
-                                : "border-border/40 bg-white/50 hover:border-primary/40 hover:bg-primary/5"
-                            }`}
+                            className={`flex cursor-pointer items-center gap-3 rounded-lg border p-3 transition-all ${equipmentAccess === String(idx)
+                              ? "border-primary bg-primary/10"
+                              : "border-border/40 bg-white/50 hover:border-primary/40 hover:bg-primary/5"
+                              }`}
                           >
                             <RadioGroupItem
                               value={String(idx)}
@@ -969,11 +961,10 @@ export default function AssessmentPage() {
                           <div
                             key={idx}
                             onClick={() => setReadinessFatigue(String(idx))}
-                            className={`flex cursor-pointer items-center gap-3 rounded-lg border p-3 transition-all ${
-                              readinessFatigue === String(idx)
-                                ? "border-primary bg-primary/10"
-                                : "border-border/40 bg-white/50 hover:border-primary/40 hover:bg-primary/5"
-                            }`}
+                            className={`flex cursor-pointer items-center gap-3 rounded-lg border p-3 transition-all ${readinessFatigue === String(idx)
+                              ? "border-primary bg-primary/10"
+                              : "border-border/40 bg-white/50 hover:border-primary/40 hover:bg-primary/5"
+                              }`}
                           >
                             <RadioGroupItem
                               value={String(idx)}
@@ -1021,11 +1012,10 @@ export default function AssessmentPage() {
                           <div
                             key={idx}
                             onClick={() => setSleepQuality(String(idx))}
-                            className={`flex cursor-pointer items-center gap-3 rounded-lg border p-3 transition-all ${
-                              sleepQuality === String(idx)
-                                ? "border-primary bg-primary/10"
-                                : "border-border/40 bg-white/50 hover:border-primary/40 hover:bg-primary/5"
-                            }`}
+                            className={`flex cursor-pointer items-center gap-3 rounded-lg border p-3 transition-all ${sleepQuality === String(idx)
+                              ? "border-primary bg-primary/10"
+                              : "border-border/40 bg-white/50 hover:border-primary/40 hover:bg-primary/5"
+                              }`}
                           >
                             <RadioGroupItem value={String(idx)} id={`sleep-${idx}`} />
                             <Label htmlFor={`sleep-${idx}`} className="cursor-pointer text-sm">
@@ -1053,11 +1043,10 @@ export default function AssessmentPage() {
                           <div
                             key={idx}
                             onClick={() => setStressLevel(String(idx))}
-                            className={`flex cursor-pointer items-center gap-3 rounded-lg border p-3 transition-all ${
-                              stressLevel === String(idx)
-                                ? "border-primary bg-primary/10"
-                                : "border-border/40 bg-white/50 hover:border-primary/40 hover:bg-primary/5"
-                            }`}
+                            className={`flex cursor-pointer items-center gap-3 rounded-lg border p-3 transition-all ${stressLevel === String(idx)
+                              ? "border-primary bg-primary/10"
+                              : "border-border/40 bg-white/50 hover:border-primary/40 hover:bg-primary/5"
+                              }`}
                           >
                             <RadioGroupItem value={String(idx)} id={`stress-${idx}`} />
                             <Label htmlFor={`stress-${idx}`} className="cursor-pointer text-sm">
@@ -1090,11 +1079,10 @@ export default function AssessmentPage() {
                           <div
                             key={value}
                             onClick={() => setGlp1Usage(value)}
-                            className={`flex cursor-pointer items-center gap-3 rounded-lg border p-3 transition-all ${
-                              glp1Usage === value
-                                ? "border-primary bg-primary/10"
-                                : "border-border/40 bg-white/50 hover:border-primary/40 hover:bg-primary/5"
-                            }`}
+                            className={`flex cursor-pointer items-center gap-3 rounded-lg border p-3 transition-all ${glp1Usage === value
+                              ? "border-primary bg-primary/10"
+                              : "border-border/40 bg-white/50 hover:border-primary/40 hover:bg-primary/5"
+                              }`}
                           >
                             <RadioGroupItem value={value} id={`glp1-${value}`} />
                             <Label htmlFor={`glp1-${value}`} className="cursor-pointer text-sm">
